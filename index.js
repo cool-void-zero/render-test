@@ -1,5 +1,5 @@
-const fetch = require('node-fetch');
 const express = require("express");
+const axios = require('axios');
 const app = express();
 const port = 3000;
 
@@ -14,9 +14,8 @@ app.get('/', (req, res) => {
     const limit = 1000;
     const url = base + `?symbol=${symbol}&interval=${interval}&limit=${limit}`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(json => res.json(json))
+    axios(url)
+        .then(response => res.json(response.data))
         .catch(err => {
             console.error(err);
             console.log(`Fail to fetch binance klines.`);
